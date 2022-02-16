@@ -41,5 +41,5 @@ foreach ($subscription in $Subscriptions) {
     $SubscriptionDetails.SpendingLimit = ($subscription.ExtendedProperties.SubscriptionPolices | ConvertFrom-Json).spendingLimit
     $SubscriptionsArray += $SubscriptionDetails
 }
-
-$SubscriptionsArray | ConvertTo-Csv -NoTypeInformation -Delimiter ";"| Out-File .\subscriptionsreport.csv
+$reportfile = $(Get-Date -format 'yyyy-MM-dd-HHmmss') + "-subscriptionreport.csv"
+$SubscriptionsArray | ConvertTo-Csv -NoTypeInformation -Delimiter ";"| Out-File .\$reportfile

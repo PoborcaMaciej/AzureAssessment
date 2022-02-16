@@ -75,4 +75,5 @@ foreach ($subscription in $Subscriptions) {
         $VMArray += $VMDetails
     }
 }
-$VMArray | ConvertTo-Csv -NoTypeInformation -Delimiter ";" | Out-File .\VMReport.csv
+$reportfile = $(Get-Date -format 'yyyy-MM-dd-HHmmss') + "-VMreport.csv"
+$VMArray | ConvertTo-Csv -NoTypeInformation -Delimiter ";" | Out-File .\$reportfile
