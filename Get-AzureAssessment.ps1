@@ -16,3 +16,5 @@ Write-Output "$(Get-Date -format HH:mm:ss)  |  Executing Subscription report"
 .\Get-AzureSubscriptions.ps1
 Write-Output "$(Get-Date -format HH:mm:ss)  |  Executing VM Report"
 .\Get-AzureVMs.ps1
+Write-Output "$(Get-Date -format HH:mm:ss)  |  Executing Defender for cloud recommendations report"
+.\Get-DefenderRecommendations.ps1
