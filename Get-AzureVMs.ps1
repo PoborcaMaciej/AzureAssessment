@@ -26,6 +26,10 @@ Class AzureVM
     [string]$VMSize
     [string]$osdisk
     [string]$datadisks
+    [int]$cpumetricsaverage
+    [int]$cpumetricsmaximum
+    [int]$cpumetricsminimum
+    [int]$cpuhigherthan75per
 }
 
 if ( ! $(Get-AzContext) )
@@ -34,6 +38,7 @@ if ( ! $(Get-AzContext) )
     Connect-AzAccount
 }
 $VMArray = @()
+$Subscriptions = Get-AzSubscription
 foreach ($subscription in $Subscriptions) {
     Set-AzContext $subscription.Id
     $VMS = Get-AzVM
@@ -71,6 +76,17 @@ foreach ($subscription in $Subscriptions) {
             $datadisks += " Tier: " + $detaileddisk.Tier +","
             $datadisks += " DiskIOPS: " + $detaileddisk.DiskIOPSReadWrite + " | "
         }
+        $today = Get-Date
+        $Allmetricsrecorded = (Get-AzMetric -ResourceId $vm.id -TimeGrain 00:01:00 -DetailedOutput -StartTime $today.AddDays(-1)).Data.average | measure -Average -Maximum -Minimum
+        $VMDetails.cpumetricsaverage = $Allmetricsrecorded.Average
+        $VMDetails.cpumetricsmaximum = $Allmetricsrecorded.Maximum
+        $VMDetails.cpumetricsminimum = $Allmetricsrecorded.Minimum
+        $Metricshigherthan75per = (Get-AzMetric -ResourceId $vm.id -TimeGrain 00:01:00 -DetailedOutput -StartTime $today.AddDays(-1)).Data | Where-Object average -gt 25
+        if($Allmetricsrecorded.Count -gt 0)
+        {
+        $VMDetails.cpuhigherthan75per = $Metricshigherthan75per.Count / $Allmetricsrecorded.count * 100
+        }
+        else{}
         $VMDetails.datadisks = $datadisks
         $VMArray += $VMDetails
     }
