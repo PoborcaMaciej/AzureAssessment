@@ -34,18 +34,13 @@ foreach ($subscription in $Subscriptions) {
     $SecurityTasks = Get-AzSecurityTask # get all recommendations from ASC
     foreach($SecurityTask in $SecurityTasks)
     {
-        If([string]::IsNullOrEmpty($SecurityTask.ResourceId.Split("/")[8])) {  
-        # resource field is empty, do nothing, since this is not actionable
-    }
-    else {
         $Recommendation = New-Object Recommendation
         $Recommendation.SubscriptionID = ($SecurityTask.ResourceId.Split("/")[2])
         $Recommendation.Recommendation = $SecurityTask.RecommendationType
-        $Recommendation.resource = ($SecurityTask.ResourceId.Split("/")[8])
+        $Recommendation.resource = $SecurityTask.ResourceId
         $Recommendation.SubscriptionName = $Subscription.Name
         $Recommendation.ResourceGroup = ($SecurityTask.ResourceId.Split("/")[4])
-        $RecommendationTable += $Recommendation
-    }   
+        $RecommendationTable += $Recommendation  
     }
 }
 $reportfile = $(Get-Date -format 'yyyy-MM-dd-HHmmss') + "-DefenderRecommendations.csv"
