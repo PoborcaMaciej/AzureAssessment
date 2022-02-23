@@ -9,6 +9,7 @@ Website:	https://maciejpoborca.pl
 
 Change Log
 V1.00, 15/02/2022 - Initial version (Subscription and VM assessment)
+V1.01, 23/02/2022 - Allow to execute directly from cloud shell
 #>
 <# Declaring classes #>
 

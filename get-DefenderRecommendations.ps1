@@ -43,7 +43,8 @@ foreach ($subscription in $Subscriptions) {
         $RecommendationTable += $Recommendation  
     }
 }
-$reportfile = $(Get-Date -format 'yyyy-MM-dd-HHmmss') + "-DefenderRecommendations.csv"
+$reportfilename = $(Get-Date -format 'yyyy-MM-dd-HHmmss') + "-DefenderRecommendations.csv"
+$reportfile = $( $(Get-CloudDrive).MountPoint + '\' + $ReportFileName )
 $RecommendationTable | ConvertTo-Csv -NoTypeInformation -Delimiter ";" | Out-File .\$reportfile
 
 

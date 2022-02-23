@@ -41,5 +41,6 @@ foreach ($subscription in $Subscriptions) {
     $SubscriptionDetails.SpendingLimit = ($subscription.ExtendedProperties.SubscriptionPolices | ConvertFrom-Json).spendingLimit
     $SubscriptionsArray += $SubscriptionDetails
 }
-$reportfile = $(Get-Date -format 'yyyy-MM-dd-HHmmss') + "-subscriptionreport.csv"
+$reportfilename = $(Get-Date -format 'yyyy-MM-dd-HHmmss') + "-subscriptionreport.csv"
+$reportfile = $( $(Get-CloudDrive).MountPoint + '\' + $ReportFileName )
 $SubscriptionsArray | ConvertTo-Csv -NoTypeInformation -Delimiter ";"| Out-File .\$reportfile
