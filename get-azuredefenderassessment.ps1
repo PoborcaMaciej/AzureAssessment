@@ -16,6 +16,7 @@ Class Recommendation
     [string]$SubscriptionID
     [string]$resource
     [string]$Recommendation
+    [string]$status
     [string]$Description
     [string]$RemediationDescription
 }
@@ -33,6 +34,7 @@ foreach($SecurityTask in $SecurityTasks)
     $Recommendation = New-Object Recommendation
     $Recommendation.SubscriptionID = ($SecurityTask.ResourceDetails.Id.Split("/")[2])
     $Recommendation.Recommendation = $SecurityTask.DisplayName
+    $Recommendation.status = $SecurityTask.status.code
     $Recommendation.resource = $SecurityTask.ResourceDetails.Id
     $Recommendation.Description = (Get-AzSecurityAssessmentMetadata -Name $SecurityTask.Name).Description
     $Recommendation.RemediationDescription = (Get-AzSecurityAssessmentMetadata -Name $SecurityTask.Name).RemediationDescription
