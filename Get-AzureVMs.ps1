@@ -93,4 +93,4 @@ foreach ($subscription in $Subscriptions) {
 }
 $reportfilename = $(Get-Date -format 'yyyy-MM-dd-HHmmss') + "-VMreport.csv"
 $reportfile = $( $(Get-CloudDrive).MountPoint + '\' + $ReportFileName )
-$VMArray | ConvertTo-Csv -NoTypeInformation -Delimiter ";" | Out-File .\$reportfile
+$VMArray | ConvertTo-Csv -NoTypeInformation -Delimiter ";" | Out-File $reportfile
