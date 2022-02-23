@@ -43,9 +43,16 @@ foreach ($subscription in $Subscriptions) {
         $RecommendationTable += $Recommendation  
     }
 }
-$reportfilename = $(Get-Date -format 'yyyy-MM-dd-HHmmss') + "-DefenderRecommendations.csv"
-$reportfile = $( $(Get-CloudDrive).MountPoint + '\' + $ReportFileName )
-$RecommendationTable | ConvertTo-Csv -NoTypeInformation -Delimiter ";" | Out-File $reportfile
 
+if ( $PSVersionTable -contains "azure" )
+{
+    $reportfilename = $(Get-Date -format 'yyyy-MM-dd-HHmmss') + "-DefenderRecommendations.csv"
+    $reportfile = $( $(Get-CloudDrive).MountPoint + '\' + $ReportFileName )
+    $RecommendationTable | ConvertTo-Csv -NoTypeInformation -Delimiter ";" | Out-File $reportfile
+}
+else{
+    $reportfilename = $(Get-Date -format 'yyyy-MM-dd-HHmmss') + "-DefenderRecommendations.csv"
+    $RecommendationTable | ConvertTo-Csv -NoTypeInformation -Delimiter ";" | Out-File .\$reportfilename
+}
 
 

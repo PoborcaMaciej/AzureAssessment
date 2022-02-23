@@ -40,9 +40,14 @@ foreach($SecurityTask in $SecurityTasks)
 }   
 
 
-$reportfilename = $(Get-Date -format 'yyyy-MM-dd-HHmmss') + "-DefenderAssessment.csv"
-$reportfile = $( $(Get-CloudDrive).MountPoint + '\' + $ReportFileName )
-$RecommendationTable | ConvertTo-Csv -NoTypeInformation -Delimiter ";" | Out-File $reportfile
-
-
+if ( $PSVersionTable -contains "azure" )
+{
+    $reportfilename = $(Get-Date -format 'yyyy-MM-dd-HHmmss') + "-DefenderAssessment.csv"
+    $reportfile = $( $(Get-CloudDrive).MountPoint + '\' + $ReportFileName )
+    $RecommendationTable | ConvertTo-Csv -NoTypeInformation -Delimiter ";" | Out-File $reportfile
+}
+else{
+    $reportfilename = $(Get-Date -format 'yyyy-MM-dd-HHmmss') + "-DefenderAssessment.csv"
+    $RecommendationTable | ConvertTo-Csv -NoTypeInformation -Delimiter ";" | Out-File .\$reportfilename
+}
 

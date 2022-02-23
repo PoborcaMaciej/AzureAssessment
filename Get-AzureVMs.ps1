@@ -91,6 +91,14 @@ foreach ($subscription in $Subscriptions) {
         $VMArray += $VMDetails
     }
 }
-$reportfilename = $(Get-Date -format 'yyyy-MM-dd-HHmmss') + "-VMreport.csv"
-$reportfile = $( $(Get-CloudDrive).MountPoint + '\' + $ReportFileName )
-$VMArray | ConvertTo-Csv -NoTypeInformation -Delimiter ";" | Out-File $reportfile
+if ( $PSVersionTable -contains "azure" )
+{
+    $reportfilename = $(Get-Date -format 'yyyy-MM-dd-HHmmss') + "-VMreport.csv"
+    $reportfile = $( $(Get-CloudDrive).MountPoint + '\' + $ReportFileName )
+    $VMArray | ConvertTo-Csv -NoTypeInformation -Delimiter ";" | Out-File $reportfile
+}
+else{
+    $reportfilename = $(Get-Date -format 'yyyy-MM-dd-HHmmss') + "-VMreport.csv"
+    $VMArray | ConvertTo-Csv -NoTypeInformation -Delimiter ";" | Out-File .\$reportfilename
+}
+

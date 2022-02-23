@@ -41,6 +41,14 @@ foreach ($subscription in $Subscriptions) {
     $SubscriptionDetails.SpendingLimit = ($subscription.ExtendedProperties.SubscriptionPolices | ConvertFrom-Json).spendingLimit
     $SubscriptionsArray += $SubscriptionDetails
 }
-$reportfilename = $(Get-Date -format 'yyyy-MM-dd-HHmmss') + "-subscriptionreport.csv"
-$reportfile = $( $(Get-CloudDrive).MountPoint + '\' + $ReportFileName )
-$SubscriptionsArray | ConvertTo-Csv -NoTypeInformation -Delimiter ";"| Out-File $reportfile
+
+if ( $PSVersionTable -contains "azure" )
+{
+    $reportfilename = $(Get-Date -format 'yyyy-MM-dd-HHmmss') + "-subscriptionreport.csv"
+    $reportfile = $( $(Get-CloudDrive).MountPoint + '\' + $ReportFileName )
+    $SubscriptionsArray | ConvertTo-Csv -NoTypeInformation -Delimiter ";" | Out-File $reportfile
+}
+else{
+    $reportfilename = $(Get-Date -format 'yyyy-MM-dd-HHmmss') + "-subscriptionreport.csv"
+    $SubscriptionsArray | ConvertTo-Csv -NoTypeInformation -Delimiter ";" | Out-File .\$reportfilename
+}
