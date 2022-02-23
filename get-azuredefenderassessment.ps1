@@ -40,7 +40,7 @@ foreach($SecurityTask in $SecurityTasks)
 }   
 
 
-if ( $PSVersionTable -contains "azure" )
+if ( $PSVersionTable.os -like "*azure*" )
 {
     $reportfilename = $(Get-Date -format 'yyyy-MM-dd-HHmmss') + "-DefenderAssessment.csv"
     $reportfile = $( $(Get-CloudDrive).MountPoint + '\' + $ReportFileName )

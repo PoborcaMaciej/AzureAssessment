@@ -91,7 +91,7 @@ foreach ($subscription in $Subscriptions) {
         $VMArray += $VMDetails
     }
 }
-if ( $PSVersionTable -contains "azure" )
+if ( $PSVersionTable.os -like "*azure*" )
 {
     $reportfilename = $(Get-Date -format 'yyyy-MM-dd-HHmmss') + "-VMreport.csv"
     $reportfile = $( $(Get-CloudDrive).MountPoint + '\' + $ReportFileName )

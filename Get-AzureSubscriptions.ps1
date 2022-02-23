@@ -42,7 +42,7 @@ foreach ($subscription in $Subscriptions) {
     $SubscriptionsArray += $SubscriptionDetails
 }
 
-if ( $PSVersionTable -contains "azure" )
+if ( $PSVersionTable.os -like "*azure*" )
 {
     $reportfilename = $(Get-Date -format 'yyyy-MM-dd-HHmmss') + "-subscriptionreport.csv"
     $reportfile = $( $(Get-CloudDrive).MountPoint + '\' + $ReportFileName )
