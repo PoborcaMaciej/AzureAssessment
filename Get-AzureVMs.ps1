@@ -77,11 +77,11 @@ foreach ($subscription in $Subscriptions) {
             $datadisks += " DiskIOPS: " + $detaileddisk.DiskIOPSReadWrite + " | "
         }
         $today = Get-Date
-        $Allmetricsrecorded = (Get-AzMetric -ResourceId $vm.id -TimeGrain 00:01:00 -DetailedOutput -StartTime $today.AddDays(-1)).Data.average | measure -Average -Maximum -Minimum
+        $Allmetricsrecorded = (Get-AzMetric -ResourceId $vm.id -TimeGrain 00:01:00 -DetailedOutput -StartTime $today.AddDays(-5)).Data.average | measure -Average -Maximum -Minimum
         $VMDetails.cpumetricsaverage = $Allmetricsrecorded.Average
         $VMDetails.cpumetricsmaximum = $Allmetricsrecorded.Maximum
         $VMDetails.cpumetricsminimum = $Allmetricsrecorded.Minimum
-        $Metricshigherthan75per = (Get-AzMetric -ResourceId $vm.id -TimeGrain 00:01:00 -DetailedOutput -StartTime $today.AddDays(-1)).Data | Where-Object average -gt 25
+        $Metricshigherthan75per = (Get-AzMetric -ResourceId $vm.id -TimeGrain 00:01:00 -DetailedOutput -StartTime $today.AddDays(-5)).Data | Where-Object average -gt 75
         if($Allmetricsrecorded.Count -gt 0)
         {
         $VMDetails.cpuhigherthan75per = $Metricshigherthan75per.Count / $Allmetricsrecorded.count * 100
