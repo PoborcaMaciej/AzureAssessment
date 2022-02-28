@@ -9,7 +9,7 @@
 
 3. Invoke download script from github and save it locally
 
-> Invoke-WebRequest -Uri https://raw.githubusercontent.com/PoborcaMaciej/AzureAssessment/main/Get-AzureAssessment.ps1?token=GHSAT0AAAAAABRTBV2ZXSTY7SBGMGTCFP3MYQ4U4TA -OutFile 'Get-AzureAssessment.ps1'
+> Invoke-WebRequest -Uri https://raw.githubusercontent.com/PoborcaMaciej/AzureAssessment/main/Get-AzureAssessment.ps1 -OutFile 'Get-AzureAssessment.ps1'
 
 4. Run script
 > ./Get-AzureAssessment.ps1
