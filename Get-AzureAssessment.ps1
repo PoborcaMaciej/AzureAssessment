@@ -25,3 +25,6 @@ Invoke-WebRequest -Uri https://raw.githubusercontent.com/PoborcaMaciej/AzureAsse
 Write-Output "$(Get-Date -format HH:mm:ss)  |  Executing Defender for cloud assessment report"
 Invoke-WebRequest -Uri https://raw.githubusercontent.com/PoborcaMaciej/AzureAssessment/main/get-azuredefenderassessment.ps1 -OutFile 'get-azuredefenderassessment.ps1'
 .\get-azuredefenderassessment.ps1
+Write-Output "$(Get-Date -format HH:mm:ss)  |  Executing Defender for cloud Azure Advisor Recommendations"
+Invoke-WebRequest -Uri https://raw.githubusercontent.com/PoborcaMaciej/AzureAssessment/main/get-AzureAdvisorRecommendations.ps1 -OutFile 'get-azureAdvisorRecommendations.ps1'
+.\get-azureAdvisorRecommendations.ps1
